@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MCA Journey</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F3F0FF">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MCA Journey">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F0FF;--card:#FFFFFF;--ink:#1A1446;--mute:#6A6590;--line:#DCD6F5;--acc:#5B3FD6;--hi:#FF6B3D;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Outfit",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1;margin:4px 0 18px;font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.1rem;margin:0 0 12px;font-weight:600}
+h3{font-size:1rem;margin:0;font-weight:600}
+.hi,.sub{color:var(--mute);margin:0}.sub{font-size:.85rem}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding:8px 0;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg)}.sw{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.tab{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:600;white-space:nowrap}
+.tab[aria-selected=true]{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+section,.meter{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:18px;padding:18px}
+.meter{margin-bottom:16px}.meter b{font-size:1.6rem;font-weight:800}
+.track{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:8px;flex:1}
+.fill{height:100%;background:var(--hi)}
+ul{list-style:none;margin:0 0 12px;padding:0}
+li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+li:last-child{border-bottom:0}
+.grow{flex:1;min-width:0;overflow-wrap:anywhere}
+.done .grow{text-decoration:line-through;color:var(--mute)}
+input,button,textarea,select{font:inherit;color:inherit}
+input[type=text],input[type=number],input[type=date],textarea,select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea{min-height:100px;resize:vertical}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row>input[type=text]{flex:1 1 140px;width:auto}
+.btn{background:var(--acc);color:var(--on);border:0;border-radius:999px;padding:8px 14px;cursor:pointer;font-weight:600;white-space:nowrap}
+.x{background:none;border:0;color:var(--mute);cursor:pointer;font-size:1.2rem;padding:4px 8px}
+.chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--acc);background:none;cursor:pointer;flex:none;color:var(--on);font-weight:800;line-height:1}
+.chk.on{background:var(--acc)}
+.chip{border:1px solid var(--line);background:none;border-radius:14px;padding:2px 10px;font-size:.8rem;cursor:pointer;white-space:nowrap;min-width:92px}
+.s1{background:var(--hi);color:#1A1446;border-color:var(--hi)}
+.s2{border-color:var(--acc);color:var(--acc);font-weight:600}
+.s3{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.pick.on{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.dots{display:flex;gap:3px;margin-top:4px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--acc)}
+.week{display:flex;align-items:flex-end;gap:8px;height:90px;margin:12px 0 4px}
+.week div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:.75rem;color:var(--mute)}
+.week span{display:block;width:100%;background:var(--hi);border-radius:4px 4px 0 0;min-height:2px}
+.stack{display:grid;gap:16px}
+.wide{grid-column:1/-1}
+.note{background:var(--bg);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:.9rem}
+.hero{border-top:0;border-left:8px solid var(--hi)}.quote{font-size:clamp(1.4rem,4.5vw,2.2rem);font-weight:800;line-height:1.2;margin:6px 0 0}details{border-bottom:1px solid var(--line);padding:10px 0}summary{cursor:pointer;font-weight:600}.dl p{margin:4px 0}
+.refs{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--mute)}.refs b{color:var(--ink)}
+:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <div id="view"></div>
+</main>
+<script>
+const K='mca-journey-v2';
+const $=s=>document.querySelector(s);
+const pad=n=>String(n).padStart(2,'0');
+const key=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const back=n=>{const d=new Date();d.setDate(d.getDate()-n);return d};
+const today=()=>key(new Date());
+const uid=()=>Math.random().toString(36).slice(2,9);
+const hm=m=>Math.floor(m/60)+'h '+pad(m%60)+'m';
+function el(tag,props,...kids){const e=document.createElement(tag);Object.assign(e,props||{});kids.forEach(k=>e.append(k));return e}
+
+/* ---------- data ---------- */
+const gen=['Module 1','Module 2','Module 3','Module 4','Module 5'];
+const GN='Open your syllabus PDF and add the topic names below. Add placement and NET topics too.';
+const lab=(c,n)=>[c,n,['Experiments done','Record written','Viva ready'],'Update the record every week and revise likely viva questions.'];
+const elec=(c,n)=>[c,n,gen,GN];
+const C={
+S1:[
+['20MCA101','Mathematical Foundations for Computing',['Sets, relations, functions','Number theory and recurrences','Graph theory','Linear algebra: Gauss elimination, eigenvalues','Correlation and regression'],'Beyond: counting and probability problems for aptitude; NET Paper 2 discrete maths.'],
+['20MCA103','Digital Fundamentals & Computer Architecture',['Number systems, gates, Boolean algebra','Sequential circuits, counters, registers','Computer abstractions and performance','Processor: datapath and control','Memory system'],'Beyond: GATE-style numericals on cache and pipelining; NET digital logic and COA.'],
+['20MCA105','Advanced Data Structures',['Review of basic structures, sets, hashing','Red-Black trees, B-Trees','Mergeable heaps, Binomial and Fibonacci heaps','Graph algorithms: DFS/BFS, components, spanning trees','Blockchain data structure'],'Beyond: daily LeetCode on each structure; tries, segment tree, union-find.'],
+['20MCA107','Advanced Software Engineering',['Software engineering and life cycle','Coding standards, documentation, version control','OOP, design patterns, unit testing','Agile, Scrum, testing techniques','Configuration management, CI'],'Beyond: use Git and GitHub daily; SOLID principles; interview questions on SDLC and testing.'],
+lab('20MCA131','Programming Lab'),lab('20MCA133','Web Programming Lab'),lab('20MCA135','Data Structures Lab')],
+S2:[
+['20MCA102','Advanced Database Management Systems',gen,'Beyond: SQL practice daily (joins, window functions), indexing, transactions, NoSQL basics. '+GN],
+['20MCA104','Advanced Computer Networks',gen,'Beyond: TCP/IP, routing, subnetting numericals; NET networks unit. '+GN],
+lab('20MCA134','DBMS Lab'),lab('20MCA136','System Administration Lab')],
+S3:[
+['20MCA201','Data Science & Machine Learning',['Data science process, exploration, statistics','Machine learning basics, lazy learning','Decision trees and rule learning','Neural networks, SVM','Clustering, model evaluation'],'Beyond: Python and scikit-learn, one Kaggle project, ML interview questions.'],
+['20MCA203','Design & Analysis of Algorithms',['Analysis, recurrences, divide and conquer','Greedy strategy, dynamic programming','Backtracking, branch and bound, lower bounds','Complexity theory: P, NP, network flows','Approximation algorithms and more'],'Beyond: classic DP, greedy and graph problems; NP-completeness for NET.'],
+lab('20MCA241','Data Science Lab'),
+['20MCA245','Mini Project',['Idea and guide','Requirements and design','Implementation','Testing','Report and demo'],'Put it on GitHub with a clear README so it can go on your resume.']],
+S4:[
+['20MCA242','Comprehensive Viva',['Revise Semester 1','Revise Semester 2','Revise Semester 3','Mock viva practice'],'Make short notes for every subject as you go, so this revision is easy.'],
+['20MCA244','Seminar',['Topic chosen','Research and notes','Slides ready','Presented'],'Pick a current topic that also helps your interviews.'],
+['20MCA246','Main Project',['Topic and guide','Literature review','Design','Implementation','Testing','Report','Final presentation'],'Choose something you can explain fully in interviews.']]
+};
+const EL={
+S2:[['20MCA162','Applied Statistics'],['20MCA164','Organisational Behaviour'],['20MCA166','Functional Programming'],['20MCA168','Virtualisation and Containers'],['20MCA172','Advanced Operating Systems'],['20MCA182','Business Management'],['20MCA184','Embedded Systems'],['20MCA186','Computer Graphics'],['20MCA188','Artificial Intelligence'],['20MCA192','IPR and Cyber Laws']],
+S3:[['20MCA261','Operations Research'],['20MCA263','Cyber Security & Cryptography'],['20MCA265','Cloud Computing'],['20MCA267','Cyber Forensics'],['20MCA269','Compiler Design'],['20MCA281','Internet of Things'],['20MCA283','Deep Learning'],['20MCA285','Digital Image Processing']]
+};
+const PREP=[
+['dsa','DSA (zero to advanced)',['Beginner: Arrays and strings','Beginner: Time complexity basics','Beginner: Recursion','Beginner: Sorting and searching','Beginner: Linked lists','Intermediate: Stacks and queues','Intermediate: Hashing','Intermediate: Trees and BST','Intermediate: Heaps','Intermediate: Two pointers and sliding window','Advanced: Graphs','Advanced: Dynamic programming','Advanced: Backtracking','Advanced: Tries','Advanced: Segment tree and union-find'],'Aim for a few problems every day, and revisit the ones you got wrong.'],
+['apt','Aptitude (zero to advanced)',['Beginner: Percentages','Beginner: Ratio and proportion','Beginner: Averages','Beginner: Profit and loss','Intermediate: Time and work','Intermediate: Speed and distance','Intermediate: Permutation and combination','Intermediate: Probability','Intermediate: Number series','Advanced: Data interpretation','Advanced: Logical reasoning sets','Advanced: Seating arrangements','Advanced: Verbal ability and reading comprehension'],'Practise with a timer once the basics are done.'],
+['net1','UGC NET Paper 1',['Teaching aptitude','Research aptitude','Comprehension','Communication','Mathematical reasoning','Logical reasoning','Data interpretation','ICT','People, development and environment','Higher education system'],'Check this outline against the official NTA syllabus for your session.'],
+['net2','UGC NET Computer Science (Paper 2)',['Discrete structures and logic','Computer organisation and digital logic','Programming and data structures','Algorithms','Theory of computation and compilers','Operating systems','Databases','Computer networks and security','Software engineering','AI and machine learning'],'Check this outline against the official NTA syllabus for your session.'],
+['gov','Other government exams',[],'Add the exams you plan to write and their topics below.']
+];
+const EN=[
+['Listen for 15 minutes (a slow story or simple English audio)','Learn 5 new words and say each in a sentence aloud','Say today\u2019s speaking prompt aloud 3 times','Write 3 simple sentences about your day','Repeat 10 common phrases aloud'],
+['Listen for 20 minutes (podcast or talk with subtitles)','Learn 8 new words and use them in sentences','Record yourself speaking for 2 minutes on the prompt','Write 5 sentences and fix one mistake','Read one page aloud'],
+['Listen for 30 minutes and summarise it aloud','Speak for 5 minutes on a technical topic','Write a paragraph and improve it','Read an article and discuss it aloud','Answer one mock interview question aloud']];
+const PR=['Introduce yourself in 5 sentences.','Describe your morning routine.','Tell me about your college.','Explain one thing you learned today.','Describe your favourite place.','Talk about your goal for this year.','Explain a project idea to a friend.','Describe a story you read recently.','Tell me why you chose MCA.','Describe your best friend.'];
+
+
+const QUOTES=['Every minute you protect today is a mark you collect in the exam hall.','Nobody is coming to study for you. Pick up the book and start now.','Your dream does not care how tired you feel. Do one focused hour, then another.','Discipline is a promise to your future self. Keep it today.','Rank holders are not born. They are built one ordinary day at a time.','Stop trying to prove yourself to others. Prove it to the person who wrote this goal.','Small hours add up to big results. Do not skip today.','Comfort is loud and goals are quiet. Choose the goal.','Today you can study or you can wish. Only one of them earns marks.','A rough day with a finished plan beats a perfect day with none.','While you hesitate, your dream is waiting. Begin with one page.','Be so consistent that your results speak without you saying a word.','Fear of failing is a signal to prepare more, not to quit.','Win the morning, and the day follows.'];
+const GUIDE=[
+['Collect every internal mark','Each subject has 40 internal marks: 8 for attendance, 20 for the two class tests and 12 for assignments or quizzes. Never miss class or an assignment. This is the surest way to lead the rank list.'],
+['Cover all five modules','The end-semester paper has 10 compulsory short questions (2 from every module) and, in Part B, a choice of one from two in every module. Skipping any module costs marks, so finish the whole syllabus.'],
+['Learn, revise, test','For each module, move it from Learning to Revised the next day, then to Tested a week later by writing answers from memory. Use the status buttons in the Syllabus tab.'],
+['Practise answering','Write 3-mark and 6-mark answers in exam time. Use previous question papers from your college whenever you can get them.'],
+['Make one-page notes','Keep one page per module with definitions, diagrams and formulas. They make final revision fast and prepare you for the Comprehensive Viva in Semester 4.'],
+['Study in focused blocks','Study for 50 minutes, rest for 10, and keep the phone away. A few focused hours beat a whole day of half attention.'],
+['Protect sleep and health','Sleep about 7 hours, eat on time and move your body. A tired mind forgets what it studied. Rest is part of the plan, not the opposite of it.'],
+['Review every Sunday','Check the Progress tab, fix your weakest subject first, and plan the next week.']];
+const ROOM='Compete with your own yesterday, not with anyone else. You do not have to prove anything in the room. Study where you focus best, like the library or an empty classroom, keep your plan to yourself, and let your marks do the talking. If it ever turns into bullying or harassment, tell your warden or a faculty member you trust.';
+const REF={
+'20MCA101':['Burton, Elementary Number Theory; Grimaldi, Discrete and Computational Mathematics; Kreyszig, Advanced Engineering Mathematics; Gupta & Kapoor, Fundamentals of Mathematical Statistics','Liu, Elements of Discrete Mathematics; Tremblay, Discrete Mathematical Structures; Rosen, Discrete Mathematics and Its Applications; Lewinter & Meyer, Elementary Number Theory with Programming'],
+'20MCA103':['Floyd, Digital Fundamentals; Hennessy & Patterson, Computer Organization and Design; Hennessy & Patterson, Computer Architecture: A Quantitative Approach; Hamacher, Vranesic & Zaky, Computer Organization','Stallings, Computer Organization and Architecture; R.P. Jain, Modern Digital Electronics'],
+'20MCA105':['Cormen, Leiserson, Rivest & Stein, Introduction to Algorithms','Kleinberg & Tardos, Algorithm Design; Aho, Hopcroft & Ullman, Data Structures and Algorithms; Sahni, Data Structures, Algorithms, and Applications in C++'],
+'20MCA107':['See the syllabus PDF for the full list','Laplante, What Every Engineer Should Know about Software Engineering'],
+'20MCA102':['Silberschatz, Korth & Sudarshan, Database System Concepts; Harrison, Next Generation Databases','Dubay, Database Management Concepts; Ramakrishnan & Gehrke, Database Management Systems; Connolly & Begg, Database Systems; NPTEL courses on databases and database design'],
+'20MCA104':['See the syllabus PDF for the full list','Fall & Stevens, TCP/IP Illustrated Vol. 1; Peterson & Davie, Computer Networks: A Systems Approach; Black, Computer Networks: Protocols, Standards and Interface; Stallings, Foundations of Modern Networking'],
+'20MCA201':['Kotu & Deshpande, Data Science: Concepts and Practice; Lantz, Machine Learning with R (Modules 2 to 5)','Tan, Steinbach & Kumar, Introduction to Data Mining; Han, Kamber & Pei, Data Mining; Harrington, Machine Learning in Action; Gopal, Applied Machine Learning; Alpaydin, Introduction to Machine Learning; Hastie et al., The Elements of Statistical Learning'],
+'20MCA203':['Cormen et al., Introduction to Algorithms; Horowitz, Sahni & Rajasekaran, Fundamentals of Computer Algorithms','Neapolitan & Naimipour, Foundations of Algorithms; Baase & Van Gelder, Computer Algorithms; Levitin, Introduction to the Design and Analysis of Algorithms'],
+'20MCA162':['Veerarajan, Probability and Random Process; Gupta & Kapoor, Fundamentals of Mathematical Statistics','Moore & McCabe, Introduction to the Practice of Statistics; Kerns, Introduction to Probability and Statistics Using R; Montgomery & Runger, Applied Statistics and Probability for Engineers'],
+'20MCA166':['Bird & Wadler, Introduction to Functional Programming','Peyton Jones, The Implementation of Functional Languages; Pierce, Types and Programming Languages; haskell.org; learnyouahaskell.com'],
+'20MCA172':['See the syllabus PDF for the full list','Sinha, Distributed Operating Systems; Coulouris et al., Distributed Systems: Concepts and Design'],
+'20MCA184':['Raj Kamal, Embedded Systems; Shibu K.V., Introduction to Embedded Systems','Staunstrup & Wolf, Hardware/Software Co-Design; Labrose, MicroC/OS-II; Heath, Embedded System Design; Wolf, Computers as Components'],
+'20MCA188':['Knight & Rich, Artificial Intelligence; Russell & Norvig, Artificial Intelligence: A Modern Approach','Jackson, Introduction to Expert Systems; Patterson, Introduction to AI and Expert Systems'],
+'20MCA261':['See the syllabus PDF for the full list','Taha, Operations Research: An Introduction; Ravindran, Phillips & Solberg, Operations Research'],
+'20MCA263':['See the syllabus PDF for the full list','Kaufman, Perlman & Speciner, Network Security; Mogollon, Cryptography and Security Services; Cheswick, Bellovin & Rubin, Firewalls and Internet Security'],
+'20MCA265':['See the syllabus PDF for the full list','Fifield et al., OpenStack Operations Guide; Vyas, Applied OpenStack Design Patterns; Bumgardner, OpenStack in Action'],
+'20MCA267':['See the syllabus PDF for the full list','Britz, Computer Forensics and Cyber Crime; Maras, Computer Forensics: Cybercriminals, Laws, and Evidence'],
+'20MCA269':['Aho, Lam, Sethi & Ullman, Compilers: Principles, Techniques and Tools','Raghavan, Principles of Compiler Design; Tremblay & Sorenson, The Theory and Practice of Compiler Writing; Louden, Compiler Construction; Cooper & Torczon, Engineering a Compiler'],
+'20MCA281':['Buyya & Dastjerdi, Internet of Things','Waher, Learning Internet of Things; Iyengar et al., Fundamentals of Sensor Network Programming; Stackowiak et al., Big Data and the Internet of Things'],
+'20MCA285':['Gonzalez & Woods, Digital Image Processing; Jain, Fundamentals of Digital Image Processing','Schalkoff, Digital Image Processing and Computer Vision; Pratt, Digital Image Processing; Bovik, Handbook of Image and Video Processing']};
+function refBlock(code){
+  if(!code.startsWith('20MCA'))return el('span');
+  const r=REF[code],q=t=>el('p',{style:'margin:4px 0'},...t);
+  return el('div',{className:'refs'},el('b',{},'Textbooks and references'),...(r?[q([el('b',{},'Textbooks: '),r[0]]),q([el('b',{},'References: '),r[1]])]:[q(['See the syllabus PDF for the textbook list.'])]));
+}
+
+/* ---------- state ---------- */
+let S=null;
+try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S||!S.habits)S={tab:'today',sem:'S1',tasks:[],study:{},goal:240,prog:{},custom:{},pick:{},exams:[],lvl:1,eng:{},vocab:[],notes:{},story:{},
+ habits:['Revise today\u2019s class notes','Solve 2 DSA problems','Sleep on time'].map(n=>({id:uid(),n,days:{}}))};
+const fix=o=>{o.mission=o.mission||{};o.skills=o.skills||[];o.why=o.why||'';o.marks=o.marks||[];o.exp=o.exp||[];o.diary=o.diary||{};o.notes2=o.notes2||[];o.prof=o.prof||{};o.mode=o.mode||'auto';o.pal=o.pal||'violet';return o};
+fix(S);
+function save(){S._u=Date.now();try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+function exportData(){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mca-journey-backup.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+const PAL={
+violet:['Violet',['#F3F0FF','#FFFFFF','#1A1446','#6A6590','#DCD6F5','#5B3FD6','#FF6B3D','#FFFFFF'],['#120E2E','#1D1842','#EEEBFF','#A39EC9','#352E66','#A18BFF','#FF8A5C','#120E2E']],
+forest:['Forest',['#EEF3EC','#FFFFFF','#14291C','#5A6F60','#CBD8CD','#1F7A4D','#F2A93B','#FFFFFF'],['#0E1A13','#15271C','#E5F0E8','#92AA9A','#27402F','#52C78A','#F2A93B','#0E1A13']],
+ocean:['Ocean',['#EAF4F8','#FFFFFF','#0C2A3A','#567586','#C5DCE6','#0A6FA8','#FF9F43','#FFFFFF'],['#0A1B26','#112B3A','#E3F1F8','#8FB0C2','#234559','#4FB6EE','#FFB45E','#0A1B26']],
+sunset:['Sunset',['#FFF3EC','#FFFFFF','#3A1A12','#8A6558','#F1D6C9','#D94F30','#F5B700','#FFFFFF'],['#24100B','#341B14','#FFEDE5','#C79D8E','#563024','#FF7A59','#FFC933','#24100B']],
+rose:['Rose',['#FFF0F5','#FFFFFF','#3B1224','#8A5C70','#F2D2DF','#C2185B','#00A6A6','#FFFFFF'],['#240B16','#361524','#FFE9F1','#C99AAE','#5A2640','#FF6FA3','#2BD4D4','#240B16']],
+graphite:['Graphite',['#F1F1F1','#FFFFFF','#1D1D1D','#6A6A6A','#D6D6D6','#2F2F2F','#E8A317','#FFFFFF'],['#151515','#212121','#EDEDED','#A0A0A0','#3A3A3A','#D6D6D6','#E8A317','#151515']]};
+const PK=['bg','card','ink','mute','line','acc','hi','on'];
+function applyTheme(){
+  const dark=S.mode==='dark'||(S.mode==='auto'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);
+  const p=PAL[S.pal]||PAL.violet,c=dark?p[2]:p[1],r=document.documentElement.style;
+  PK.forEach((k,i)=>r.setProperty('--'+k,c[i]));
+  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=c[0];
+}
+if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme);
+const dayMins=d=>Object.values(S.study[d]||{}).reduce((a,b)=>a+b,0);
+const semCourses=s=>C[s].concat((EL[s]||[]).filter(e=>S.pick[e[0]]).map(e=>elec(e[0],e[1])));
+const idsOf=c=>[...c[2].map((_,i)=>c[0]+':'+i),...(S.custom[c[0]]||[]).map(x=>c[0]+':'+x.id)];
+const pctOf=ids=>ids.length?Math.round(ids.reduce((a,i)=>a+(S.prog[i]||0),0)/(3*ids.length)*100):0;
+const ST=['Not started','Learning','Revised','Tested'];
+
+/* ---------- helpers ---------- */
+function adder(ph,fn,label){
+  const i=el('input',{type:'text',placeholder:ph,ariaLabel:ph});
+  const go=()=>{const v=i.value.trim();if(v){fn(v);save();render()}};
+  i.onkeydown=e=>{if(e.key==='Enter')go()};
+  return el('div',{className:'row'},i,el('button',{className:'btn',textContent:label||'Add',onclick:go}));
+}
+const sec=(t,...k)=>el('section',{},el('h2',{},t),...k);
+const chk=(on,fn,lbl)=>el('button',{className:'chk'+(on?' on':''),textContent:on?'\u2713':'',ariaLabel:lbl,onclick:fn});
+const xbtn=(fn,lbl)=>el('button',{className:'x',textContent:'\u00d7',ariaLabel:lbl,onclick:fn});
+const bar=(l,p)=>el('div',{className:'row',style:'margin:6px 0'},el('span',{style:'width:150px'},l),el('div',{className:'track',style:'margin:0'},el('div',{className:'fill',style:'width:'+p+'%'})),el('b',{},p+'%'));
+function chip(id){const v=S.prog[id]||0;return el('button',{className:'chip s'+v,textContent:ST[v],ariaLabel:'Change status',onclick:()=>{S.prog[id]=(v+1)%4;save();render()}})}
+function topicCard(c){
+  const code=c[0],cu=S.custom[code]||[];
+  const li=(id,t,del)=>el('li',{},chip(id),el('span',{className:'grow'},t),...(del?[xbtn(del,'Delete topic')]:[]));
+  return el('section',{},
+    el('div',{className:'row',style:'justify-content:space-between'},el('h3',{},c[1]),el('b',{},pctOf(idsOf(c))+'%')),
+    el('p',{className:'sub'},code.startsWith('20MCA')?code:''),
+    el('ul',{style:'margin-top:8px'},...c[2].map((m,i)=>li(code+':'+i,m)),...cu.map(x=>li(code+':'+x.id,x.t,()=>{S.custom[code]=cu.filter(y=>y!==x);save();render()}))),
+    el('div',{className:'note'},c[3]),
+    adder('Add your own topic',v=>{(S.custom[code]=S.custom[code]||[]).push({id:uid(),t:v})}),
+    refBlock(code));
+}
+
+/* ---------- views ---------- */
+const V={};
+V.today=v=>{
+  const t=today(),m=dayMins(t),wd=new Date().getDay();
+  const goal=el('input',{type:'number',min:1,max:16,step:.5,value:S.goal/60,style:'width:70px',ariaLabel:'Daily goal in hours',onchange:e=>{const g=parseFloat(e.target.value);if(g>0){S.goal=Math.round(g*60);save();render()}}});
+  v.append(el('p',{className:'hi'},'Hi'+(S.prof.name?' '+S.prof.name:'')+'. '+QUOTES[Math.floor(new Date()/864e5)%QUOTES.length]),
+    el('h1',{},new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})),
+    el('div',{className:'meter'},el('b',{},hm(m)),el('span',{className:'sub'},' studied today. Goal (hours):'),' ',goal,
+      el('div',{className:'track'},el('div',{className:'fill',style:'width:'+Math.min(100,m/S.goal*100)+'%'}))));
+  const g=el('div',{className:'grid'});
+  if(wd===0||wd===6)g.append(el('section',{className:'wide'},el('ul',{style:'margin:0'},el('li',{className:S.story[t]?'done':''},chk(S.story[t],()=>{S.story[t]=!S.story[t];save();render()},'Mark story time done'),el('span',{className:'grow'},'Weekend story time: read a story for 30 minutes, aloud if you can')))));
+  if(new Date().getHours()<12&&!S.tasks.some(x=>x.d===t)){
+    const ins=[1,2,3].map(i=>el('input',{type:'text',placeholder:'Priority '+i,ariaLabel:'Priority '+i,style:'margin-bottom:8px'}));
+    g.append(el('section',{className:'wide'},el('h2',{},'Good morning. Plan your day'),el('p',{className:'sub',style:'margin-bottom:10px'},'Write your top 3 tasks for today.'),...ins,el('button',{className:'btn',textContent:'Add to today',onclick:()=>{ins.forEach(i=>{const x=i.value.trim();if(x)S.tasks.push({id:uid(),t:x,done:false,d:t})});save();render()}})));
+  }
+  const shown=S.tasks.filter(x=>x.d===t||(!x.done&&x.d<t));
+  g.append(sec('Today\u2019s tasks',el('ul',{},...(shown.length?shown.map(x=>el('li',{className:x.done?'done':''},chk(x.done,()=>{x.done=!x.done;save();render()},'Mark task done'),el('span',{className:'grow'},x.t,...(x.d<t?[el('div',{className:'sub'},'Carried over')]:[])),xbtn(()=>{S.tasks=S.tasks.filter(y=>y!==x);save();render()},'Delete task'))):[el('li',{className:'sub'},'No tasks yet.')])),
+    adder('Add a task for today',val=>S.tasks.push({id:uid(),t:val,done:false,d:t}))));
+  g.append(sec('Daily habits',el('ul',{},...S.habits.map(h=>{
+    const on=!!h.days[t];let n=0,i=on?0:1;while(h.days[key(back(i))]){n++;i++}
+    const dots=el('div',{className:'dots'});for(let k=6;k>=0;k--)dots.append(el('i',{className:h.days[key(back(k))]?'on':''}));
+    return el('li',{},chk(on,()=>{if(on)delete h.days[t];else h.days[t]=true;save();render()},'Mark habit done'),el('div',{className:'grow'},h.n,el('div',{className:'sub'},n+(n===1?' day':' days')+' streak'),dots),xbtn(()=>{S.habits=S.habits.filter(y=>y!==h);save();render()},'Delete habit'))})),
+    adder('Add a habit to build',val=>S.habits.push({id:uid(),n:val,days:{}}))));
+  const subj=el('input',{type:'text',placeholder:'Subject (e.g. DSA)',ariaLabel:'Subject'}),mins=el('input',{type:'number',value:30,min:5,step:5,style:'width:80px',ariaLabel:'Minutes'});
+  const log=()=>{const s=subj.value.trim(),mm=parseInt(mins.value,10);if(!s||!(mm>0))return;S.study[t]=S.study[t]||{};S.study[t][s]=(S.study[t][s]||0)+mm;save();render()};
+  g.append(sec('Log study time',el('ul',{},...(Object.entries(S.study[t]||{}).map(([s,x])=>el('li',{},el('span',{className:'grow'},s),el('b',{},hm(x)),xbtn(()=>{delete S.study[t][s];save();render()},'Remove entry'))).concat(Object.keys(S.study[t]||{}).length?[]:[el('li',{className:'sub'},'Nothing logged yet today.')]))),
+    el('div',{className:'row'},subj,mins,el('button',{className:'btn',textContent:'Log',onclick:log}))));
+  v.append(g);
+};
+
+V.syllabus=v=>{
+  v.append(el('div',{className:'row',style:'margin-bottom:16px'},...['S1','S2','S3','S4'].map(s=>el('button',{className:'chip pick'+(S.sem===s?' on':''),textContent:'Semester '+s.slice(1),style:'padding:6px 14px',onclick:()=>{S.sem=s;save();render()}}))));
+  const st=el('div',{className:'stack'});
+  if(EL[S.sem])st.append(sec('Choose your electives',el('p',{className:'sub',style:'margin-bottom:10px'},'Tap the ones your college offers this semester. They will appear below.'),el('div',{className:'row'},...EL[S.sem].map(e=>el('button',{className:'chip pick'+(S.pick[e[0]]?' on':''),textContent:e[1],ariaPressed:!!S.pick[e[0]],onclick:()=>{S.pick[e[0]]=!S.pick[e[0]];save();render()}})))));
+  const g=el('div',{className:'grid'});semCourses(S.sem).forEach(c=>g.append(topicCard(c)));
+  st.append(g);v.append(st);
+};
+
+V.english=v=>{
+  const t=today(),items=EN[S.lvl-1],done=S.eng[t]=S.eng[t]||[];
+  const cnt=d=>(S.eng[d]||[]).filter(Boolean).length;
+  let n=0,i=cnt(t)>=3?0:1;while(cnt(key(back(i)))>=3){n++;i++}
+  v.append(el('h1',{},'English, every day'),
+    el('p',{className:'sub',style:'margin:-8px 0 14px'},'Do at least 3 of the 5 steps to keep your streak. Current streak: '+n+(n===1?' day':' days')+'.'),
+    el('div',{className:'row',style:'margin-bottom:16px'},...['Level 1: Starter','Level 2: Building','Level 3: Confident'].map((l,k)=>el('button',{className:'chip pick'+(S.lvl===k+1?' on':''),textContent:l,style:'padding:6px 14px',onclick:()=>{S.lvl=k+1;save();render()}}))));
+  const g=el('div',{className:'grid'});
+  g.append(sec('Today\u2019s practice',el('ul',{},...items.map((x,k)=>el('li',{className:done[k]?'done':''},chk(done[k],()=>{done[k]=!done[k];save();render()},'Mark step done'),el('span',{className:'grow'},x)))),
+    el('div',{className:'note'},'Speaking prompt: '+PR[Math.floor(new Date()/864e5)%PR.length])));
+  const vl=S.vocab.slice(0,10);
+  g.append(sec('My new words',el('ul',{},...(vl.length?vl.map(w=>el('li',{},el('span',{className:'grow'},w.w),el('span',{className:'sub'},w.d),xbtn(()=>{S.vocab=S.vocab.filter(y=>y!==w);save();render()},'Delete word'))):[el('li',{className:'sub'},'Add a word and its meaning.')])),
+    adder('Word: meaning',val=>S.vocab.unshift({id:uid(),w:val,d:t}))));
+  const ta=el('textarea',{placeholder:'Write 3 sentences about your day in English.',ariaLabel:'English journal',value:S.notes['e'+t]||'',oninput:e=>{S.notes['e'+t]=e.target.value;save()}});
+  g.append(el('section',{className:'wide'},el('h2',{},'My sentences today'),ta));
+  v.append(g);
+};
+
+V.exams=v=>{
+  const name=el('input',{type:'text',placeholder:'Exam name (e.g. Series test 1, DAA)',ariaLabel:'Exam name'});
+  const type=el('select',{ariaLabel:'Type'},...['Series test','Assignment','End semester','NET','Government exam','Other'].map(o=>el('option',{textContent:o})));
+  const date=el('input',{type:'date',ariaLabel:'Original date',style:'width:auto'});
+  const add=()=>{if(!name.value.trim()||!date.value)return;S.exams.push({id:uid(),n:name.value.trim(),ty:type.value,o:date.value,r:''});save();render()};
+  const eff=e=>e.r||e.o;
+  const ex=[...S.exams].sort((a,b)=>eff(a).localeCompare(eff(b)));
+  const left=e=>{const d=Math.round((new Date(eff(e)+'T00:00')-new Date(today()+'T00:00'))/864e5);return d<0?'passed':d===0?'today':d+(d===1?' day':' days')+' left'};
+  v.append(el('h1',{},'Exam schedule'),el('p',{className:'sub',style:'margin:-8px 0 14px'},'Enter dates from the official notices. If a date changes, fill the revised date and the original stays visible.'),
+    el('div',{className:'stack'},
+    sec('Add an exam',el('div',{className:'row'},name,type,date,el('button',{className:'btn',textContent:'Add exam',onclick:add}))),
+    sec('Upcoming and past',el('ul',{},...(ex.length?ex.map(e=>{
+      const rv=el('input',{type:'date',value:e.r,ariaLabel:'Revised date',style:'width:auto',onchange:ev=>{e.r=ev.target.value;save();render()}});
+      return el('li',{style:'flex-wrap:wrap'},el('div',{className:'grow'},el('b',{},e.n),el('div',{className:'sub'},e.ty+'. '+(e.r?'Revised: '+e.r+' (originally '+e.o+')':'Date: '+e.o)+'. '+left(e))),el('span',{className:'sub'},'Revised date'),rv,xbtn(()=>{S.exams=S.exams.filter(y=>y!==e);save();render()},'Delete exam'))}):[el('li',{className:'sub'},'No exams yet. Add your first series test above.')])))));
+};
+
+V.prep=v=>{
+  v.append(el('h1',{},'Placement and exam prep'));
+  const g=el('div',{className:'grid'});PREP.forEach(p=>g.append(topicCard(p)));v.append(g);
+};
+
+V.progress=v=>{
+  const g=el('div',{className:'grid'});
+  g.append(sec('Semesters',...['S1','S2','S3','S4'].map(s=>bar('Semester '+s.slice(1),pctOf(semCourses(s).flatMap(idsOf))))));
+  g.append(sec('Prep tracks',...PREP.map(p=>bar(p[1].split(' (')[0],pctOf(idsOf(p))))));
+  const cnt=d=>(S.eng[d]||[]).filter(Boolean).length;
+  g.append(sec('English, last 7 days',el('div',{className:'week'},...[6,5,4,3,2,1,0].map(i=>{const d=back(i),s=el('span');s.style.height=cnt(key(d))/5*100+'%';return el('div',{title:cnt(key(d))+' of 5 steps'},s,d.toLocaleDateString('en-IN',{weekday:'short'}).slice(0,2))}))));
+  g.append(sec('Study hours, last 7 days',el('div',{className:'week'},...[6,5,4,3,2,1,0].map(i=>{const d=back(i),mm=dayMins(key(d)),s=el('span');s.style.height=Math.min(100,mm/S.goal*100)+'%';return el('div',{title:hm(mm)},s,d.toLocaleDateString('en-IN',{weekday:'short'}).slice(0,2))}))));
+  v.append(el('h1',{},'My progress'),g);
+};
+
+
+V.rise=v=>{
+  const t=today(),q=QUOTES[Math.floor(new Date()/864e5)%QUOTES.length],m=S.mission[t]=S.mission[t]||{t:'',done:false};
+  const mi=el('input',{type:'text',value:m.t,placeholder:'My one big goal for today',ariaLabel:'Today\u2019s mission',oninput:e=>{m.t=e.target.value;save()}});
+  const why=el('textarea',{placeholder:'Why am I doing this? Write the reason that will pull you through hard days.',ariaLabel:'My reason',value:S.why,oninput:e=>{S.why=e.target.value;save()}});
+  const g=el('div',{className:'grid'});
+  GUIDE.forEach(x=>g.append(sec(x[0],el('p',{style:'margin:0'},x[1]))));
+  g.append(el('section',{className:'wide'},el('h2',{},'About your roommates'),el('p',{style:'margin:0'},ROOM)));
+  v.append(el('section',{className:'hero',style:'margin-bottom:16px'},el('p',{className:'sub'},'Today\u2019s push'),el('p',{className:'quote'},q),el('p',{className:'sub',style:'margin-top:10px'},'Every second counts, and so does rest. Aim for focused hours, not exhausted ones.')),
+    el('div',{className:'stack'},
+      sec('Today\u2019s mission',el('div',{className:'row'},chk(m.done,()=>{m.done=!m.done;save();render()},'Mark mission done'),mi)),
+      sec('My reason',why),
+      el('h1',{style:'margin:8px 0 0'},'How to become a rank holder'),g));
+};
+V.skills=v=>{
+  v.append(el('h1',{},'Skills'),el('p',{className:'sub',style:'margin:-8px 0 14px'},'Use spare time to build skills that make you stand out: a language, a tool, a creative hobby.'));
+  const st=el('div',{className:'stack'});
+  st.append(sec('Add a skill',adder('Skill name (e.g. Python, public speaking)',val=>S.skills.push({id:uid(),n:val,goal:20,mins:0}))));
+  S.skills.forEach(k=>{
+    const add=mm=>el('button',{className:'chip',textContent:'+'+(mm>=60?'1h':mm+'m'),onclick:()=>{k.mins+=mm;save();render()}});
+    const gi=el('input',{type:'number',min:1,value:k.goal,style:'width:70px',ariaLabel:'Goal hours',onchange:e=>{const x=parseFloat(e.target.value);if(x>0){k.goal=x;save();render()}}});
+    st.append(el('section',{},el('div',{className:'row',style:'justify-content:space-between'},el('h3',{},k.n),xbtn(()=>{S.skills=S.skills.filter(y=>y!==k);save();render()},'Delete skill')),
+      bar(hm(k.mins)+' of '+k.goal+'h',Math.min(100,Math.round(k.mins/(k.goal*60)*100))),
+      el('div',{className:'row'},add(15),add(30),add(60),el('span',{className:'sub'},'Goal (hours):'),gi)));
+  });
+  v.append(st);
+};
+
+
+V.history=v=>{
+  const days=new Set(),ok=d=>/^\d{4}-\d\d-\d\d$/.test(d);
+  Object.keys(S.study).forEach(d=>days.add(d));
+  Object.keys(S.eng).forEach(d=>(S.eng[d]||[]).some(Boolean)&&days.add(d));
+  Object.keys(S.notes).forEach(k=>k[0]==='e'&&S.notes[k]&&days.add(k.slice(1)));
+  Object.keys(S.mission).forEach(d=>S.mission[d].t&&days.add(d));
+  Object.keys(S.story).forEach(d=>S.story[d]&&days.add(d));
+  S.habits.forEach(h=>Object.keys(h.days).forEach(d=>days.add(d)));
+  S.tasks.forEach(x=>days.add(x.d));S.vocab.forEach(w=>days.add(w.d));
+  const list=[...days].filter(ok).sort().reverse();
+  let w7=0,a7=0;for(let i=0;i<7;i++){const m=dayMins(key(back(i)));w7+=m;if(m)a7++}
+  const msg=el('span',{className:'sub'});
+  const dl=el('button',{className:'btn',textContent:'Download backup',onclick:()=>{exportData();msg.textContent='Backup downloaded.'}});
+  const line=(a,b)=>el('p',{},el('b',{},a+': '),b);
+  v.append(el('h1',{},'History'),
+    el('p',{className:'sub',style:'margin:-8px 0 14px'},'Your data is saved on this device. Download a backup now and then.'),
+    el('div',{className:'meter'},el('b',{},hm(w7)),el('span',{className:'sub'},' studied in the last 7 days, on '+a7+' of 7 days'),el('div',{className:'row',style:'margin-top:10px'},dl,msg)),
+    el('section',{},el('h2',{},'Past days'),...(list.length?list.map(d=>{
+      const st=Object.entries(S.study[d]||{}),hb=S.habits.filter(h=>h.days[d]),tk=S.tasks.filter(x=>x.d===d),en=(S.eng[d]||[]).filter(Boolean).length,ms=S.mission[d],jn=S.notes['e'+d],wd=S.vocab.filter(x=>x.d===d);
+      const date=new Date(d+'T00:00'),b=el('div',{className:'dl'});
+      if(st.length)b.append(line('Study',st.map(([a,m])=>a+' '+hm(m)).join(', ')));
+      if(hb.length)b.append(line('Habits done',hb.map(h=>h.n).join(', ')));
+      if(tk.length)b.append(line('Tasks',tk.map(x=>(x.done?'\u2713 ':'\u25cb ')+x.t).join('; ')));
+      if(en)b.append(line('English',en+' of 5 steps'));
+      if(wd.length)b.append(line('New words',wd.map(x=>x.w).join(', ')));
+      if(jn)b.append(line('My sentences',jn));
+      if(ms&&ms.t)b.append(line('Mission',(ms.done?'Done: ':'Not done: ')+ms.t));
+      if(S.story[d])b.append(line('Story time','Read a story'));
+      return el('details',{},el('summary',{},date.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})+'. '+hm(dayMins(d))+' studied'),b)}):[el('p',{className:'sub'},'Nothing yet. Your days will appear here.')])));
+};
+
+
+V.profile=v=>{
+  const F=[['name','Name'],['college','College'],['sem','Current semester'],['prev','Previous degree and result'],['dream','Dream job or company'],['goal','My MCA rank goal']];
+  v.append(el('h1',{},'Profile'),el('section',{},...F.map(([k,l])=>el('div',{style:'margin-bottom:10px'},el('label',{className:'sub',htmlFor:'p_'+k},l),el('input',{type:'text',id:'p_'+k,value:S.prof[k]||'',oninput:e=>{S.prof[k]=e.target.value;save()}}))),el('p',{className:'sub'},'This stays on your device. Your reason for studying is in the Rise tab.')));
+};
+V.records=v=>{
+  const sub=el('input',{type:'text',placeholder:'Subject',ariaLabel:'Subject'});sub.setAttribute('list','subs');
+  const dl=el('datalist',{id:'subs'},...Object.values(C).flat().map(c=>el('option',{value:c[1]})));
+  const sem=el('select',{ariaLabel:'Semester'},...['S1','S2','S3','S4'].map(x=>el('option',{value:x,textContent:'Semester '+x[1],selected:x===S.sem})));
+  const ty=el('select',{ariaLabel:'Type'},...['Series test 1','Series test 2','Assignment','Internal total','End semester','Lab','Viva'].map(o=>el('option',{textContent:o})));
+  const got=el('input',{type:'number',placeholder:'Marks',min:0,step:.5,style:'width:90px',ariaLabel:'Marks obtained'}),max=el('input',{type:'number',placeholder:'Out of',min:1,style:'width:90px',ariaLabel:'Maximum marks'});
+  const add=()=>{const g=parseFloat(got.value),m=parseFloat(max.value);if(!sub.value.trim()||isNaN(g)||!(m>0))return;S.marks.push({id:uid(),s:sem.value,n:sub.value.trim(),t:ty.value,g,m});save();render()};
+  const st=el('div',{className:'stack'});
+  st.append(sec('Add marks',el('div',{className:'row'},sem,sub,dl,ty,got,max,el('button',{className:'btn',textContent:'Add marks',onclick:add}))));
+  ['S1','S2','S3','S4'].forEach(k=>{const e=S.marks.filter(x=>x.s===k);if(!e.length)return;const G=e.reduce((a,x)=>a+x.g,0),M=e.reduce((a,x)=>a+x.m,0);
+    st.append(sec('Semester '+k[1]+': '+G+' of '+M+' ('+Math.round(G/M*100)+'%)',el('ul',{},...e.map(x=>el('li',{},el('span',{className:'grow'},x.n,el('div',{className:'sub'},x.t)),el('b',{},x.g+' / '+x.m),xbtn(()=>{S.marks=S.marks.filter(y=>y!==x);save();render()},'Delete marks'))))))});
+  const tt=el('input',{type:'text',placeholder:'Title (project, internship, certificate...)',ariaLabel:'Title'}),tp=el('select',{ariaLabel:'Type'},...['Project','Internship','Certification','Workshop','Achievement','Other'].map(o=>el('option',{textContent:o}))),td=el('input',{type:'date',style:'width:auto',ariaLabel:'Date'}),tn=el('input',{type:'text',placeholder:'What you did or learned',ariaLabel:'Details'});
+  const ax=()=>{if(!tt.value.trim())return;S.exp.push({id:uid(),t:tt.value.trim(),ty:tp.value,d:td.value,n:tn.value.trim()});save();render()};
+  st.append(sec('Add experience',el('div',{className:'row'},tt,tp,td,tn,el('button',{className:'btn',textContent:'Add experience',onclick:ax}))));
+  st.append(sec('My experience',el('ul',{},...(S.exp.length?[...S.exp].sort((a,b)=>(b.d||'').localeCompare(a.d||'')).map(x=>el('li',{},el('div',{className:'grow'},el('b',{},x.t),el('div',{className:'sub'},x.ty+(x.d?', '+x.d:'')),...(x.n?[el('div',{},x.n)]:[])),xbtn(()=>{S.exp=S.exp.filter(y=>y!==x);save();render()},'Delete experience'))):[el('li',{className:'sub'},'Projects, internships and certificates you add will be listed here.')]))));
+  v.append(el('h1',{},'Marks and experience'),st);
+};
+V.diary=v=>{
+  const d=S.dd||today();
+  const dt=el('input',{type:'date',value:d,style:'width:auto',ariaLabel:'Diary date',onchange:e=>{S.dd=e.target.value||today();render()}});
+  const ta=el('textarea',{placeholder:'How was your day? What did you learn, and how do you feel?',ariaLabel:'Diary entry',style:'min-height:160px',value:S.diary[d]||'',oninput:e=>{S.diary[d]=e.target.value;save()}});
+  const past=Object.keys(S.diary).filter(k=>S.diary[k]&&k!==d).sort().reverse();
+  const st=el('div',{className:'stack'});
+  st.append(sec('My diary',el('div',{className:'row',style:'margin-bottom:10px'},dt),ta));
+  if(past.length)st.append(sec('Earlier entries',...past.map(k=>el('details',{},el('summary',{},k),el('p',{style:'white-space:pre-wrap'},S.diary[k])))));
+  st.append(el('h2',{style:'margin:8px 0 0'},'My notes'),el('div',{className:'row'},el('button',{className:'btn',textContent:'New note',onclick:()=>{S.notes2.unshift({id:uid(),t:'',b:''});save();render()}})));
+  S.notes2.forEach(n=>st.append(el('section',{},el('div',{className:'row',style:'margin-bottom:8px'},el('input',{type:'text',value:n.t,placeholder:'Note title',ariaLabel:'Note title',oninput:e=>{n.t=e.target.value;save()}}),xbtn(()=>{S.notes2=S.notes2.filter(y=>y!==n);save();render()},'Delete note')),el('textarea',{value:n.b,placeholder:'Write your note',ariaLabel:'Note text',oninput:e=>{n.b=e.target.value;save()}}))));
+  v.append(el('h1',{},'Diary and notes'),st);
+};
+V.settings=v=>{
+  const mode=(m,l)=>el('button',{className:'chip pick'+(S.mode===m?' on':''),textContent:l,style:'padding:6px 14px',onclick:()=>{S.mode=m;save();render()}});
+  const pal=el('div',{className:'row'},...Object.keys(PAL).map(k=>el('button',{className:'chip pick'+(S.pal===k?' on':''),style:'padding:6px 14px',onclick:()=>{S.pal=k;save();render()}},el('span',{className:'sw',style:'background:'+PAL[k][1][5]}),el('span',{className:'sw',style:'background:'+PAL[k][1][6]}),PAL[k][0])));
+  const fi=el('input',{type:'file',accept:'.json,application/json',ariaLabel:'Restore backup',onchange:e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.habits)throw 0;S=fix(o);save();render()}catch(x){msg.textContent='That file is not a valid backup.'}};r.readAsText(f)}});
+  const msg=el('p',{className:'sub'});
+  v.append(el('h1',{},'Settings'),el('div',{className:'stack'},
+    sec('Light or dark mode',el('div',{className:'row'},mode('auto','Match my phone'),mode('light','Light'),mode('dark','Dark'))),
+    sec('App theme',pal),
+    sec('Backup and restore',el('p',{className:'sub',style:'margin-bottom:10px'},'Your data lives on this device. Download a backup now and then, and restore it on a new phone.'),el('div',{className:'row'},el('button',{className:'btn',textContent:'Download backup',onclick:exportData})),el('p',{className:'sub',style:'margin:12px 0 6px'},'Restore from a backup file:'),fi,msg)));
+};
+
+/* ---------- shell ---------- */
+const TABS=[['today','Today'],['rise','Rise'],['syllabus','Syllabus'],['english','English'],['exams','Exams'],['prep','Prep'],['skills','Skills'],['records','Marks'],['diary','Diary'],['history','History'],['progress','Progress'],['profile','Profile'],['settings','Settings']];
+function render(){
+  applyTheme();
+  $('#tabs').replaceChildren(...TABS.map(([k,l])=>el('button',{className:'tab',textContent:l,ariaSelected:S.tab===k,onclick:()=>{S.tab=k;save();render()}})));
+  const v=$('#view');v.replaceChildren();V[S.tab](v);
+}
+render();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+</script>
+</body>
+</html>
